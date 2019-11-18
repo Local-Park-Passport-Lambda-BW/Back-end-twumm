@@ -4,6 +4,8 @@
   "description": "Local Park Passport is the definitive guide for find this best parks in your area depending on what your tastes are",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "twumm",
