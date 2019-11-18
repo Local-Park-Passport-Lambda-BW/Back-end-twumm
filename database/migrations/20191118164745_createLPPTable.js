@@ -44,7 +44,7 @@ exports.up = function (knex) {
         .onDelete('CASCADE');
     })
     .createTable('Characteristics', (Characteristics) => {
-      Characteristics.increment();
+      Characteristics.increments();
       Characteristics.text('type')
         .notNullable();
       Characteristics.text('description');
@@ -65,12 +65,12 @@ exports.up = function (knex) {
         .onDelete('CASCADE');
     })
     .createTable('Pictures', (Pictures) => {
-      Pictures.increment();
+      Pictures.increments();
       Pictures.text('imageURL')
         .notNullable();
     })
     .createTable('ParkPicture', (ParkPicture) => {
-      ParkPicture.increment();
+      ParkPicture.increments();
       ParkPicture.integer('park_id')
         .unsigned()
         .references('id')
