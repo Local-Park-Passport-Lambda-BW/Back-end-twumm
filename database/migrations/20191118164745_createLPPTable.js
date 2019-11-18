@@ -87,5 +87,12 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-
+  return knex.schema
+    .dropTableIfExists('ParkPicture')
+    .dropTableIfExists('Pictures')
+    .dropTableIfExists('ParkCharacteristics')
+    .dropTableIfExists('Characteristics')
+    .dropTableIfExists('Ratings')
+    .dropTableIfExists('Parks')
+    .dropTableIfExists('Users');
 };
