@@ -7,6 +7,7 @@ const server = express();
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
+server.use(logger);
 
 server.get('/', async (req, res, next) => {
   try {
@@ -19,5 +20,10 @@ server.get('/', async (req, res, next) => {
     next(new Error('Local Park Passport is not available at the moment'));
   }
 });
+
+function logger(req, res, next) {
+  console.log(`[${new Date().toISOString()}] ${req.method} request from ${req.url}`);
+}
+
 
 module.exports = server;
