@@ -49,11 +49,6 @@ exports.up = function (knex) {
         .notNullable();
       Characteristics.text('description');
     })
-    .createTable('Pictures', (Pictures) => {
-      Pictures.increment();
-      Pictures.text('imageURL')
-        .notNullable();
-    })
     .createTable('ParkCharacteristics', (ParkCharacteristics) => {
       ParkCharacteristics.primary(['park_id', 'characteristics_id']);
       ParkCharacteristics.integer('park_id')
@@ -68,6 +63,11 @@ exports.up = function (knex) {
         .inTable('Characteristics')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
+    })
+    .createTable('Pictures', (Pictures) => {
+      Pictures.increment();
+      Pictures.text('imageURL')
+        .notNullable();
     })
     .createTable('ParkPicture', (ParkPicture) => {
       ParkPicture.increment();
