@@ -16,6 +16,7 @@ module.exports = {
   },
   rules: {
     "require-atomic-updates": 0,
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "arrow-parens": 0
   },
 };
