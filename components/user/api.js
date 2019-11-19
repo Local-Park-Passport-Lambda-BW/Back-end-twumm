@@ -23,7 +23,7 @@ router.post('/register', [validateUserData, hashPassword], async (req, res, next
       .status(200)
       .json(newUser);
   } catch (error) {
-    next(new Error(error.message));
+    next(new Error(error));
   }
 });
 
