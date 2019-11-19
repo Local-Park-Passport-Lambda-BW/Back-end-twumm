@@ -8,7 +8,7 @@ const {
   validateUserData,
 } = require('./middlewares');
 
-router.post('/signup', [validateUserData, hashPassword], async (req, res, next) => {
+router.post('/register', [validateUserData, hashPassword], async (req, res, next) => {
   const { email, username } = req.body;
   const { hashedPassword } = req;
   const user = {
@@ -28,7 +28,7 @@ router.post('/signup', [validateUserData, hashPassword], async (req, res, next) 
 });
 
 
-router.get('/signin', [validateUserData, reversePasswordHash], async (req, res, next) => {
+router.post('/login', [validateUserData, reversePasswordHash], async (req, res, next) => {
   try {
     if (req.user) {
       const token = await generateJwtToken(req.user);
@@ -46,3 +46,5 @@ router.get('/signin', [validateUserData, reversePasswordHash], async (req, res, 
     next(new Error('Signin failed!'));
   }
 });
+
+module.exports = router;
