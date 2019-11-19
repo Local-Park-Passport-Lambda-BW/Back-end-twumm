@@ -16,6 +16,7 @@ const findUserBy = filter => {
 const createUser = user => {
   return db('Users')
     .insert(user)
+    .returning('id')
     .then(ids => getUserById(ids[0]));
 };
 
