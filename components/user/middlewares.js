@@ -49,3 +49,22 @@ const generateJwtToken = user => {
   const token = jwt.sign(payload, jwtSecret, options);
   return token;
 };
+
+const restricted = (req, res, next) => {
+  const tokenInAuthHeader = req.headers.authorization;
+
+  if (tokenInAuthHeader) {
+    jwt.verify(tokenInAuthHeader, jwtSecret, (error, decodedToken) => {
+      if (error) {
+        res
+          .status(401)
+          .json({
+            message: 'User is not authorized',
+          });
+      } else {
+        req.decodedToken = decodedToken;
+        next();
+      }
+    });
+  }
+};
