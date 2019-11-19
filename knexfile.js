@@ -1,4 +1,4 @@
-// Update with your config settings.
+const productionDatabaseURL = require('./config').pgdburl;
 
 module.exports = {
 
@@ -38,19 +38,17 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password',
-    },
+    client: 'pg',
+    connection: productionDatabaseURL,
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: 'knex_migrations',
+      directory: './database/migrations',
+    },
+    seeds: {
+      directory: './database/seeds',
     },
   },
-
 };
