@@ -32,7 +32,7 @@ exports.up = function (knex) {
         .unsigned()
         .notNullable()
         .references('id')
-        .inTable('parks')
+        .inTable('Parks')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       Ratings.integer('user_id')
