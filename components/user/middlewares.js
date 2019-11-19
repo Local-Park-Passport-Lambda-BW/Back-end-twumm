@@ -77,7 +77,7 @@ const validateUserData = (req, res, next) => {
   } else if (!req.body.email || !req.body.password) {
     res
       .status(400)
-      .json({ message: 'Missing required *username* and *password* fields' });
+      .json({ message: 'Missing required *email* and *password* fields' });
   } else {
     next();
   }
