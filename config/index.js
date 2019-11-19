@@ -3,6 +3,6 @@ const isProduction = env === 'production';
 
 module.exports = {
   env,
-  pgdburl: process.env.DATABASE_URL_PRODUCTION,
+  pgdburl: process.env.DATABASE_URL,
   secure: isProduction,
 };
