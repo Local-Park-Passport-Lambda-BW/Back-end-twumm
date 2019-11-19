@@ -29,9 +29,16 @@ const updatePark = (id, changes) => {
     .update(changes);
 };
 
+const deletePark = id => {
+  return db('Parks')
+    .where({ id })
+    .del();
+};
+
 module.exports = {
   getAllParks,
   getParkById,
   createPark,
   updatePark,
+  deletePark,
 };
