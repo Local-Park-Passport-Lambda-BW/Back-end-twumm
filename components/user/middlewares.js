@@ -15,7 +15,7 @@ const hashPassword = async (req, res, next) => {
   }
 };
 
-const reversePassword = async (req, res, next) => {
+const reversePasswordHash = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     User.findUserBy({ email })
@@ -92,4 +92,13 @@ const userExists = async (req, res, next) => {
   } catch (error) {
     next(new Error('User does not exist.'));
   }
+};
+
+module.exports = {
+  hashPassword,
+  reversePasswordHash,
+  generateJwtToken,
+  restricted,
+  validateUserData,
+  userExists,
 };
