@@ -4,6 +4,8 @@
   "description": "Local Park Passport is the definitive guide for find this best parks in your area depending on what your tastes are",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "twumm",
@@ -22,6 +24,8 @@
   },
   "devDependencies": {
     "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.4"
   }
 }

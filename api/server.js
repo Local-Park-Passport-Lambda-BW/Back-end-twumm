@@ -23,7 +23,20 @@ server.get('/', async (req, res, next) => {
 
 function logger(req, res, next) {
   console.log(`[${new Date().toISOString()}] ${req.method} request from ${req.url}`);
+  next();
 }
 
+function errorHandler(error, req, res, next) {
+  console.log('ERROR: ', error);
+  res
+    .status(500)
+    .json({
+      message: error.message,
+      stack: error.stack,
+    });
+  next();
+}
+
+server.use(errorHandler);
 
 module.exports = server;
