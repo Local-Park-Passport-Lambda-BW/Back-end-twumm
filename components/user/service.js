@@ -3,30 +3,30 @@
 const db = require('../../database/config');
 
 const getUserById = id => {
-  return db('users')
+  return db('Users')
     .where({ id })
     .first();
 };
 
 const findUserBy = filter => {
-  return db('users')
+  return db('Users')
     .where(filter);
 };
 
 const createUser = user => {
-  return db('users')
+  return db('Users')
     .insert(user)
     .then(ids => getUserById(ids[0]));
 };
 
 const updateUser = (id, changes) => {
-  return db('users')
+  return db('Users')
     .where({ id })
     .update(changes);
 };
 
 const deleteUser = id => {
-  return db('users')
+  return db('Users')
     .where({ id })
     .del();
 };
