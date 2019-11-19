@@ -82,3 +82,14 @@ const validateUserData = (req, res, next) => {
     next();
   }
 };
+
+const userExists = async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.getUserById(userId);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(new Error('User does not exist.'));
+  }
+};
