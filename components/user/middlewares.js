@@ -36,3 +36,16 @@ const reversePassword = async (req, res, next) => {
     next(new Error('Something went wrong on the sign-in attempt'));
   }
 };
+
+const generateJwtToken = user => {
+  const payload = {
+    sub: user.id,
+  };
+
+  const options = {
+    expiresIn: '1d',
+  };
+
+  const token = jwt.sign(payload, jwtSecret, options);
+  return token;
+};
