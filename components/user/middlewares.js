@@ -14,3 +14,25 @@ const hashPassword = async (req, res, next) => {
     next(new Error('Something went wrong. Please try again'));
   }
 };
+
+const reversePassword = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    User.findUserBy({ email })
+      .first()
+      .then(user => {
+        if (user && bcrypt.compareSync(password, user.password)) {
+          req.user = user;
+          next();
+        } else {
+          res
+            .status(401)
+            .json({
+              message: 'Invalid credentials',
+            });
+        }
+      });
+  } catch (error) {
+    next(new Error('Something went wrong on the sign-in attempt'));
+  }
+};
