@@ -26,3 +26,23 @@ router.post('/signup', [validateUserData, hashPassword], async (req, res, next) 
     next(new Error('User could not be signed up. Please try again again'));
   }
 });
+
+
+router.get('/signin', [validateUserData, reversePasswordHash], async (req, res, next) => {
+  try {
+    if (req.user) {
+      const token = await generateJwtToken(req.user);
+      res
+        .status(200)
+        .json({
+          id: req.user.id,
+          email: req.user.email,
+          token,
+        });
+    } else {
+      next(new Error('User is not authorized'));
+    }
+  } catch (error) {
+    next(new Error('Signin failed!'));
+  }
+});
