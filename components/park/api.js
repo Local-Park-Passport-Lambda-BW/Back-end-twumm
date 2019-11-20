@@ -15,48 +15,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/:user_id', async (req, res, next) => {
-  const { name, city, country, description } = req.body;
-  const { user_id } = req.params;
-  const park = { name, city, country, description };
+router.get('/characteristics', async (req, res, next) => {
   try {
-    const newPark = await Park.createPark(user_id, park);
+    const characteristics = await Park.getAllCharacteristics();
     res
-      .status(200)
-      .json(newPark);
+      .status
+      .json(characteristics);
   } catch (error) {
     next(new Error(error));
   }
 });
 
-router.delete('/:parkId/:userId', async (req, res, next) => {
-  const { parkId, userId } = req.params;
-  try {
-    const deletedPark = await Park.deletePark(parkId);
-    res
-      .status(200)
-      .json(deletedPark);
-  } catch (error) {
-    next(new Error(error));
-  }
-});
-
-router.put('/:parkId/:userId', async (req, res, next) => {
-  const { name, city, country, description } = req.body;
-  const parkUpdate = { name, city, country, description };
-  const { parkId, userId } = req.params;
-  try {
-    const updatedPark = await Park.updatePark(parkId, parkUpdate);
-    res
-      .status(200)
-      .json(updatedPark);
-  } catch (error) {
-    next(new Error(error));
-  }
-});
-
-router.post('/add-characteristic/', async (req, res, next) => {
-  const { characteristic } = req.body;
+router.post('/add-characteristic', async (req, res, next) => {
+  const { type, description } = req.body;
+  const characteristic = { type, description };
   try {
     const newCharacteristic = await Park.addCharacteristic(characteristic);
     res
@@ -98,6 +70,46 @@ router.delete('/delete-characteristic/:characteristicId/:parkId/park', async (re
     res
       .status(200)
       .json(deletedCharacteristic);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
+router.post('/:user_id', async (req, res, next) => {
+  const { name, city, country, description } = req.body;
+  const { user_id } = req.params;
+  const park = { name, city, country, description };
+  try {
+    const newPark = await Park.createPark(user_id, park);
+    res
+      .status(200)
+      .json(newPark);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
+router.delete('/:parkId/:userId', async (req, res, next) => {
+  const { parkId, userId } = req.params;
+  try {
+    const deletedPark = await Park.deletePark(parkId);
+    res
+      .status(200)
+      .json(deletedPark);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
+router.put('/:parkId/:userId', async (req, res, next) => {
+  const { name, city, country, description } = req.body;
+  const parkUpdate = { name, city, country, description };
+  const { parkId, userId } = req.params;
+  try {
+    const updatedPark = await Park.updatePark(parkId, parkUpdate);
+    res
+      .status(200)
+      .json(updatedPark);
   } catch (error) {
     next(new Error(error));
   }
