@@ -38,6 +38,10 @@ const deletePark = id => {
     .del();
 };
 
+const getAllCharacteristics = () => {
+  return db('Characteristics');
+};
+
 const addCharacteristic = characteristic => {
   return db('Characteristics')
     .insert(characteristic)
@@ -71,6 +75,7 @@ module.exports = {
   createPark,
   updatePark,
   deletePark,
+  getAllCharacteristics,
   addCharacteristic,
   deleteCharacteristic,
   addCharacteristicToPark,
