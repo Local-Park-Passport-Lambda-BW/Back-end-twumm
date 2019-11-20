@@ -19,8 +19,20 @@ router.get('/characteristics', async (req, res, next) => {
   try {
     const characteristics = await Park.getAllCharacteristics();
     res
-      .status
+      .status(200)
       .json(characteristics);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
+router.get('/:parkId', async (req, res, next) => {
+  const { parkId } = req.params;
+  try {
+    const park = await Park.getParkById(parkId);
+    res
+      .status(200)
+      .json(park);
   } catch (error) {
     next(new Error(error));
   }
