@@ -10,6 +10,7 @@ server.use(cors());
 server.use(logger);
 
 server.use('/users', require('../components/user/api'));
+server.use('/parks', require('../components/park/api'));
 
 server.get('/', async (req, res, next) => {
   try {
