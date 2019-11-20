@@ -67,4 +67,16 @@ router.post('/add-characteristic/', async (req, res, next) => {
   }
 });
 
+router.delete('/delete-characteristic/:characteristicId', async (req, res, next) => {
+  const { characteristicId } = req.params;
+  try {
+    const deletedCharacteristic = await Park.deleteCharacteristic(characteristicId);
+    res
+      .status(201)
+      .json(deletedCharacteristic);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
 module.exports = router;
