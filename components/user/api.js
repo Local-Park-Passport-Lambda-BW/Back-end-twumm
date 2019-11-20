@@ -9,12 +9,13 @@ const {
 } = require('./middlewares');
 
 router.post('/register', [validateUserData, hashPassword], async (req, res, next) => {
-  const { email, username } = req.body;
+  const { email, username, name } = req.body;
   const { hashedPassword } = req;
   const user = {
     email,
     password: hashedPassword,
     username,
+    name,
   };
 
   try {
