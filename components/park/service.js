@@ -38,10 +38,41 @@ const deletePark = id => {
     .del();
 };
 
+const addCharacteristic = characteristic => {
+  return db('Characteristics')
+    .insert(characteristic)
+    .returning('id');
+};
+
+const deleteCharacteristic = characteristicId => {
+  return db('Characteristics')
+    .where({ id: characteristicId })
+    .del();
+};
+
+const addCharacteristicToPark = (parkId, characteristicsId) => {
+  return db('ParkCharacteristics')
+    .insert({
+      park_id: parkId,
+      characteristics_id: characteristicsId,
+    })
+    .returning('id');
+};
+
+const removeCharacteristicFromPark = (parkId, characteristicsId) => {
+  return db('ParkCharacteristics')
+    .where({ park_id: parkId, characteristics_id: characteristicsId })
+    .del();
+};
+
 module.exports = {
   getAllParks,
   getParkById,
   createPark,
   updatePark,
   deletePark,
+  addCharacteristic,
+  deleteCharacteristic,
+  addCharacteristicToPark,
+  removeCharacteristicFromPark,
 };
