@@ -55,4 +55,16 @@ router.put('/:parkId/:userId', async (req, res, next) => {
   }
 });
 
+router.post('/add-characteristic/', async (req, res, next) => {
+  const { characteristic } = req.body;
+  try {
+    const newCharacteristic = await Park.addCharacteristic(characteristic);
+    res
+      .status(200)
+      .json(newCharacteristic);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
 module.exports = router;
