@@ -4,7 +4,11 @@
 const db = require('../../database/config');
 
 const getAllParks = () => {
-  return db('Parks');
+  return db('Parks')
+    .leftJoin('Users', 'Parks.user_id', 'Users.id')
+    .select('Parks.id', 'Parks.name', 'Parks.city',
+      'Parks.country', 'Parks.user_id', 'Users.name as Fullname',
+      'Users.username');
 };
 
 const getParkById = id => {
@@ -17,7 +21,10 @@ const createPark = (user_id, park) => {
   return db('Parks')
     .insert({
       user_id,
-      park,
+      name: park.name,
+      city: park.city,
+      country: park.country,
+      description: park.description,
     })
     .returning('id')
     .then(ids => getParkById(ids[0]));
@@ -35,10 +42,46 @@ const deletePark = id => {
     .del();
 };
 
+const getAllCharacteristics = () => {
+  return db('Characteristics');
+};
+
+const addCharacteristic = characteristic => {
+  return db('Characteristics')
+    .insert(characteristic)
+    .returning('id');
+};
+
+const deleteCharacteristic = characteristicId => {
+  return db('Characteristics')
+    .where({ id: characteristicId })
+    .del();
+};
+
+const addCharacteristicToPark = (parkId, characteristicsId) => {
+  return db('ParkCharacteristics')
+    .insert({
+      park_id: parkId,
+      characteristics_id: characteristicsId,
+    })
+    .returning('id');
+};
+
+const removeCharacteristicFromPark = (parkId, characteristicsId) => {
+  return db('ParkCharacteristics')
+    .where({ park_id: parkId, characteristics_id: characteristicsId })
+    .del();
+};
+
 module.exports = {
   getAllParks,
   getParkById,
   createPark,
   updatePark,
   deletePark,
+  getAllCharacteristics,
+  addCharacteristic,
+  deleteCharacteristic,
+  addCharacteristicToPark,
+  removeCharacteristicFromPark,
 };

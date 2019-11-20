@@ -22,6 +22,13 @@ exports.up = function (knex) {
       Parks.text('country')
         .notNullable();
       Parks.text('description');
+      Parks.integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('Users')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
     })
     .createTable('Ratings', (Ratings) => {
       Ratings.increments();
