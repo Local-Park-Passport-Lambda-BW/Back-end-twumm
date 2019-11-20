@@ -17,7 +17,10 @@ const createPark = (user_id, park) => {
   return db('Parks')
     .insert({
       user_id,
-      park,
+      name: park.name,
+      city: park.city,
+      country: park.country,
+      description: park.description,
     })
     .returning('id')
     .then(ids => getParkById(ids[0]));
