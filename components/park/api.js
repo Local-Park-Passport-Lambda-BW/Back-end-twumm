@@ -91,4 +91,16 @@ router.post('/add-characteristic/:characteristicId/:parkId/park', async (req, re
   }
 });
 
+router.delete('/delete-characteristic/:characteristicId/:parkId/park', async (req, res, next) => {
+  const { characteristicId, parkId } = req.params;
+  try {
+    const deletedCharacteristic = await Park.removeCharacteristicFromPark(parkId, characteristicId);
+    res
+      .status(200)
+      .json(deletedCharacteristic);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
 module.exports = router;
