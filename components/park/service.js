@@ -4,7 +4,11 @@
 const db = require('../../database/config');
 
 const getAllParks = () => {
-  return db('Parks');
+  return db('Parks')
+    .leftJoin('Users', 'Parks.user_id', 'Users.id')
+    .select('Parks.id', 'Parks.name', 'Parks.city',
+      'Parks.country', 'Parks.user_id', 'Users.name as Fullname',
+      'Users.username');
 };
 
 const getParkById = id => {
