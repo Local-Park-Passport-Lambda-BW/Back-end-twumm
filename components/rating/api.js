@@ -17,7 +17,17 @@ router.post('/:parkId/:userId', async (req, res, next) => {
 });
 
 router.put('/:ratingId', async (req, res, next) => {
-
+  const { rating, comment } = req.body;
+  const { ratingId } = req.params;
+  const ratingUpdate = { rating, comment };
+  try {
+    const updatedRating = await Rating.updateParkRating(ratingId, ratingUpdate);
+    res
+      .status(200)
+      .json(updatedRating);
+  } catch (error) {
+    next(new Error(error));
+  }
 });
 
 module.exports = router;
