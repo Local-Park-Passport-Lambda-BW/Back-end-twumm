@@ -29,4 +29,30 @@ router.post('/:user_id', async (req, res, next) => {
   }
 });
 
+router.delete('/:parkId/:userId', async (req, res, next) => {
+  const { parkId, userId } = req.params;
+  try {
+    const deletedPark = await Park.deletePark(parkId);
+    res
+      .status(200)
+      .json(deletedPark);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
+router.put('/:parkId/:userId', async (req, res, next) => {
+  const { name, city, country, description } = req.body;
+  const parkUpdate = { name, city, country, description };
+  const { parkId, userId } = req.params;
+  try {
+    const updatedPark = await Park.updatePark(parkId, parkUpdate);
+    res
+      .status(200)
+      .json(updatedPark);
+  } catch (error) {
+    next(new Error(error));
+  }
+});
+
 module.exports = router;
