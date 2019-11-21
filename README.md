@@ -86,3 +86,14 @@ Local Park Passport is the definitive guide for find this best parks in your are
 <span style="color:gold">POST</span> - add characteristic to a park - `http://localhost:4000/parks/add-characteristic/:characteristicId/:parkId/park`
 
 <span style="color:red">DEL</span> - delete characteristic from a park - `http://localhost:4000/parks/add-characteristic/:characteristicId/:parkId/park`
+
+## Contributing
+
+The `develop` is the staging branch while `master` is production.
+`develop` will always have the current changes for the application.
+
+Thinking of contributing? 
+  1. Branch off the `develop` branch
+  2. add your changes
+  3. make a pull request to `develop`
+  4. take a break while we review and merge
