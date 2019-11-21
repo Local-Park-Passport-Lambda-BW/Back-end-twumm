@@ -1,7 +1,7 @@
 const request = require('supertest');
 const server = require('./server');
 
-describe('GET /', () => {
+describe('Main server route', () => {
   it('has process.env.NODE_ENV as "testing"', () => {
     expect(process.env.NODE_ENV).toBe('testing');
   });
