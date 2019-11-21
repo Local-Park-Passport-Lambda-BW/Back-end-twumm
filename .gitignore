@@ -1,2 +1,6 @@
 node_modules
 .vscode
+coverage
+
+database/lpp.db3
+database/test.db3
