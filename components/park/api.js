@@ -3,6 +3,7 @@
 const router = require('express').Router();
 
 const Park = require('./service');
+const { restricted, userExists } = require('../user/middlewares');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -26,7 +27,7 @@ router.get('/characteristics', async (req, res, next) => {
   }
 });
 
-router.get('/:parkId', async (req, res, next) => {
+router.get('/:parkId', restricted, async (req, res, next) => {
   const { parkId } = req.params;
   try {
     const park = await Park.getParkById(parkId);
@@ -38,7 +39,7 @@ router.get('/:parkId', async (req, res, next) => {
   }
 });
 
-router.post('/add-characteristic', async (req, res, next) => {
+router.post('/add-characteristic', restricted, async (req, res, next) => {
   const { type, description } = req.body;
   const characteristic = { type, description };
   try {
@@ -51,7 +52,7 @@ router.post('/add-characteristic', async (req, res, next) => {
   }
 });
 
-router.delete('/delete-characteristic/:characteristicId', async (req, res, next) => {
+router.delete('/delete-characteristic/:characteristicId', restricted, async (req, res, next) => {
   const { characteristicId } = req.params;
   try {
     const deletedCharacteristic = await Park.deleteCharacteristic(characteristicId);
@@ -63,7 +64,7 @@ router.delete('/delete-characteristic/:characteristicId', async (req, res, next)
   }
 });
 
-router.post('/add-characteristic/:characteristicId/:parkId/park', async (req, res, next) => {
+router.post('/add-characteristic/:characteristicId/:parkId/park', restricted, async (req, res, next) => {
   const { characteristicId, parkId } = req.params;
   try {
     const addedCharacteristic = await Park.addCharacteristicToPark(parkId, characteristicId);
@@ -75,7 +76,7 @@ router.post('/add-characteristic/:characteristicId/:parkId/park', async (req, re
   }
 });
 
-router.delete('/delete-characteristic/:characteristicId/:parkId/park', async (req, res, next) => {
+router.delete('/delete-characteristic/:characteristicId/:parkId/park', restricted, async (req, res, next) => {
   const { characteristicId, parkId } = req.params;
   try {
     const deletedCharacteristic = await Park.removeCharacteristicFromPark(parkId, characteristicId);
@@ -87,12 +88,12 @@ router.delete('/delete-characteristic/:characteristicId/:parkId/park', async (re
   }
 });
 
-router.post('/:user_id', async (req, res, next) => {
+router.post('/:userId', [userExists, restricted], async (req, res, next) => {
   const { name, city, country, description } = req.body;
-  const { user_id } = req.params;
+  const { userId } = req.params;
   const park = { name, city, country, description };
   try {
-    const newPark = await Park.createPark(user_id, park);
+    const newPark = await Park.createPark(userId, park);
     res
       .status(200)
       .json(newPark);
@@ -101,8 +102,8 @@ router.post('/:user_id', async (req, res, next) => {
   }
 });
 
-router.delete('/:parkId/:userId', async (req, res, next) => {
-  const { parkId, userId } = req.params;
+router.delete('/:parkId/:userId', [userExists, restricted], async (req, res, next) => {
+  const { parkId } = req.params;
   try {
     const deletedPark = await Park.deletePark(parkId);
     res
@@ -113,10 +114,10 @@ router.delete('/:parkId/:userId', async (req, res, next) => {
   }
 });
 
-router.put('/:parkId/:userId', async (req, res, next) => {
+router.put('/:parkId/:userId', [userExists, restricted], async (req, res, next) => {
   const { name, city, country, description } = req.body;
   const parkUpdate = { name, city, country, description };
-  const { parkId, userId } = req.params;
+  const { parkId } = req.params;
   try {
     const updatedPark = await Park.updatePark(parkId, parkUpdate);
     res
