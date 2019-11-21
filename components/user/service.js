@@ -10,7 +10,8 @@ const getUserById = id => {
 
 const findUserBy = filter => {
   return db('Users')
-    .where(filter);
+    .where({ email: filter })
+    .orWhere({ username: filter });
 };
 
 const createUser = user => {
