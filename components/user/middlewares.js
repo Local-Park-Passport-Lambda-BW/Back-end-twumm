@@ -67,7 +67,7 @@ const restricted = (req, res, next) => {
       }
     });
   } else {
-    next(new Error('User is not authorized'));
+    next(new Error('No credentials'));
   }
 };
 
