@@ -18,7 +18,7 @@ const hashPassword = async (req, res, next) => {
 const reversePasswordHash = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    User.findUserBy({ email })
+    User.findUserBy(email)
       .first()
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
