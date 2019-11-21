@@ -5,7 +5,8 @@ const db = require('../../database/config');
 const getUserById = id => {
   return db('Users')
     .where({ id })
-    .first();
+    .first()
+    .select('id', 'name', 'email', 'username');
 };
 
 const findUserBy = filter => {
@@ -18,7 +19,7 @@ const createUser = user => {
   return db('Users')
     .insert(user)
     .returning('id')
-    .then(ids => getUserById(ids[0]));
+    .then(ids => getUserById(ids[0]))
 };
 
 const updateUser = (id, changes) => {
