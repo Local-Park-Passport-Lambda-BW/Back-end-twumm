@@ -1,8 +1,9 @@
 const router = require('express').Router();
 
 const Rating = require('./service');
+const { restricted, userExists } = require('../user/middlewares');
 
-router.post('/rating/:parkId/:userId', async (req, res, next) => {
+router.post('/rating/:parkId/:userId', [restricted, userExists], async (req, res, next) => {
   const { rating, comment } = req.body;
   const { parkId, userId } = req.params;
   const ratings = { rating, comment };
@@ -16,7 +17,7 @@ router.post('/rating/:parkId/:userId', async (req, res, next) => {
   }
 });
 
-router.put('/rating/:ratingId', async (req, res, next) => {
+router.put('/rating/:ratingId', restricted, async (req, res, next) => {
   const { rating, comment } = req.body;
   const { ratingId } = req.params;
   const ratingUpdate = { rating, comment };

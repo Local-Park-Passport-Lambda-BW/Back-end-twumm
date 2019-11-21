@@ -66,6 +66,8 @@ const restricted = (req, res, next) => {
         next();
       }
     });
+  } else {
+    next(new Error('No credentials'));
   }
 };
 
